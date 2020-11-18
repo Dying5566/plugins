@@ -61,6 +61,8 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
           ),
         );
         return null;
+      case 'onProgress':
+        _platformCallbacksHandler.onProgress(call.arguments['progress']);
     }
 
     throw MissingPluginException(
@@ -178,6 +180,7 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
 
     _addIfNonNull('jsMode', settings.javascriptMode?.index);
     _addIfNonNull('hasNavigationDelegate', settings.hasNavigationDelegate);
+    _addIfNonNull('hasProgressTracking', settings.hasProgressTracking);
     _addIfNonNull('debuggingEnabled', settings.debuggingEnabled);
     _addIfNonNull(
         'gestureNavigationEnabled', settings.gestureNavigationEnabled);

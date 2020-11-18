@@ -31,6 +31,10 @@ abstract class WebViewPlatformCallbacksHandler {
 
   /// Report web resource loading error to the host application.
   void onWebResourceError(WebResourceError error);
+
+  /// fork
+  /// Report web resouce loading progress
+  void onProgress(int progress);
 }
 
 /// Possible error type categorizations used by [WebResourceError].
@@ -380,6 +384,7 @@ class WebSettings {
   WebSettings({
     this.javascriptMode,
     this.hasNavigationDelegate,
+    this.hasProgressTracking,
     this.debuggingEnabled,
     this.gestureNavigationEnabled,
     @required this.userAgent,
@@ -390,6 +395,10 @@ class WebSettings {
 
   /// Whether the [WebView] has a [NavigationDelegate] set.
   final bool hasNavigationDelegate;
+
+  /// Whether the [WebView] should track page loading progress.
+  /// See also: [WebViewPlatformCallbacksHandler.onProgress] to get the progress.
+  final bool hasProgressTracking;
 
   /// Whether to enable the platform's webview content debugging tools.
   ///

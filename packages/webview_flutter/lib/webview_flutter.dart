@@ -145,6 +145,9 @@ typedef void PageFinishedCallback(String url);
 /// Signature for when a [WebView] has failed to load a resource.
 typedef void WebResourceErrorCallback(WebResourceError error);
 
+/// Signature for when a [WebView] has load a page progress.
+typedef void PageOnProgress(int progress);
+
 /// Specifies possible restrictions on automatic media playback.
 ///
 /// This is typically used in [WebView.initialMediaPlaybackPolicy].
@@ -223,6 +226,8 @@ class WebView extends StatefulWidget {
     this.userAgent,
     this.initialMediaPlaybackPolicy =
         AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
+    /// fork
+    this.onProgress,
   })  : assert(javascriptMode != null),
         assert(initialMediaPlaybackPolicy != null),
         super(key: key);
@@ -333,6 +338,7 @@ class WebView extends StatefulWidget {
   ///     * When a navigationDelegate is set HTTP requests do not include the HTTP referer header.
   final NavigationDelegate navigationDelegate;
 
+  /// fork
   /// Invoked when a page starts loading.
   final PageStartedCallback onPageStarted;
 
@@ -353,6 +359,10 @@ class WebView extends StatefulWidget {
   /// This can be called for any resource (iframe, image, etc.), not just for
   /// the main page.
   final WebResourceErrorCallback onWebResourceError;
+
+  /// fork
+  /// report page loading progress
+  final PageOnProgress onProgress;
 
   /// Controls whether WebView debugging is enabled.
   ///
@@ -467,6 +477,7 @@ WebSettings _webSettingsFromWidget(WebView widget) {
   return WebSettings(
     javascriptMode: widget.javascriptMode,
     hasNavigationDelegate: widget.navigationDelegate != null,
+    hasProgressTracking: widget.onProgress != null,
     debuggingEnabled: widget.debuggingEnabled,
     gestureNavigationEnabled: widget.gestureNavigationEnabled,
     userAgent: WebSetting<String>.of(widget.userAgent),
@@ -478,6 +489,7 @@ WebSettings _clearUnchangedWebSettings(
     WebSettings currentValue, WebSettings newValue) {
   assert(currentValue.javascriptMode != null);
   assert(currentValue.hasNavigationDelegate != null);
+  assert(currentValue.hasProgressTracking != null);
   assert(currentValue.debuggingEnabled != null);
   assert(currentValue.userAgent.isPresent);
   assert(newValue.javascriptMode != null);
@@ -487,6 +499,7 @@ WebSettings _clearUnchangedWebSettings(
 
   JavascriptMode javascriptMode;
   bool hasNavigationDelegate;
+  bool hasProgressTracking;
   bool debuggingEnabled;
   WebSetting<String> userAgent = WebSetting<String>.absent();
   if (currentValue.javascriptMode != newValue.javascriptMode) {
@@ -494,6 +507,9 @@ WebSettings _clearUnchangedWebSettings(
   }
   if (currentValue.hasNavigationDelegate != newValue.hasNavigationDelegate) {
     hasNavigationDelegate = newValue.hasNavigationDelegate;
+  }
+  if (currentValue.hasProgressTracking != newValue.hasProgressTracking) {
+    hasProgressTracking = newValue.hasProgressTracking;
   }
   if (currentValue.debuggingEnabled != newValue.debuggingEnabled) {
     debuggingEnabled = newValue.debuggingEnabled;
@@ -505,6 +521,7 @@ WebSettings _clearUnchangedWebSettings(
   return WebSettings(
     javascriptMode: javascriptMode,
     hasNavigationDelegate: hasNavigationDelegate,
+    hasProgressTracking: hasProgressTracking,
     debuggingEnabled: debuggingEnabled,
     userAgent: userAgent,
   );
@@ -561,6 +578,14 @@ class _PlatformCallbacksHandler implements WebViewPlatformCallbacksHandler {
   void onWebResourceError(WebResourceError error) {
     if (_widget.onWebResourceError != null) {
       _widget.onWebResourceError(error);
+    }
+  }
+
+  /// fork
+  @override
+  void onProgress(int progress) {
+    if (_widget.onProgress != null) {
+      _widget.onProgress(progress);
     }
   }
 
