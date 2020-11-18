@@ -89,13 +89,13 @@
     NSDictionary<NSString*, id>* settings = args[@"settings"];
 
     //inject js at document start
-    NSString *injectJsAtStart = settings[@"iosInjectJsAtDocumentStart"];
+    NSString *injectJsAtStart = args[@"iosInjectJsAtDocumentStart"];
     if (!injectJsAtStart) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtStart injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
     }
 
-    NSString *injectJsAtEnd = settings[@"iosInjectJsAtDocumentEnd"];
+    NSString *injectJsAtEnd = args[@"iosInjectJsAtDocumentEnd"];
     if (!injectJsAtEnd) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtEnd injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
