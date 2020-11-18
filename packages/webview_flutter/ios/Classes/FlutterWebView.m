@@ -88,6 +88,19 @@
 
     NSDictionary<NSString*, id>* settings = args[@"settings"];
 
+    //inject js at document start
+    NSString *injectJsAtStart = settings[@"iosInjectJsAtDocumentStart"];
+    if (injectJsAtStart != null) {
+      WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtStart injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+      [userContentController addUserScript:userScript];
+    }
+
+    NSString *injectJsAtEnd = settings[@"iosInjectJsAtDocumentEnd"];
+    if (injectJsAtEnd != null) {
+      WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtEnd injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
+      [userContentController addUserScript:userScript];
+    }
+      
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     [self updateAutoMediaPlaybackPolicy:args[@"autoMediaPlaybackPolicy"]

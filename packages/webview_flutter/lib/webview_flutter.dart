@@ -228,6 +228,8 @@ class WebView extends StatefulWidget {
         AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
     /// fork
     this.onProgress,
+    this.iosInjectJsAtDocumentStart,
+    this.iosInjectJsAtDocumentEnd
   })  : assert(javascriptMode != null),
         assert(initialMediaPlaybackPolicy != null),
         super(key: key);
@@ -405,6 +407,12 @@ class WebView extends StatefulWidget {
   ///
   /// The default policy is [AutoMediaPlaybackPolicy.require_user_action_for_all_media_types].
   final AutoMediaPlaybackPolicy initialMediaPlaybackPolicy;
+  
+  /// ios inject js at document start
+  final String iosInjectJsAtDocumentStart;
+
+  /// ios inject js at document end
+  final String iosInjectJsAtDocumentEnd;
 
   @override
   State<StatefulWidget> createState() => _WebViewState();
@@ -470,6 +478,8 @@ CreationParams _creationParamsfromWidget(WebView widget) {
     javascriptChannelNames: _extractChannelNames(widget.javascriptChannels),
     userAgent: widget.userAgent,
     autoMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy,
+    iosInjectJsAtDocumentStart: widget.iosInjectJsAtDocumentStart,
+    iosInjectJsAtDocumentEnd: widget.iosInjectJsAtDocumentEnd
   );
 }
 

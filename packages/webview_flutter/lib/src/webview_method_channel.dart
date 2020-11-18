@@ -200,6 +200,8 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
       'javascriptChannelNames': creationParams.javascriptChannelNames.toList(),
       'userAgent': creationParams.userAgent,
       'autoMediaPlaybackPolicy': creationParams.autoMediaPlaybackPolicy.index,
+      'iosInjectJsAtDocumentStart': creationParams.iosInjectJsAtDocumentStart,
+      'iosInjectJsAtDocumentEnd': creationParams.iosInjectJsAtDocumentEnd
     };
   }
 }

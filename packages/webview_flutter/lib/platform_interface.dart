@@ -441,6 +441,8 @@ class CreationParams {
     this.userAgent,
     this.autoMediaPlaybackPolicy =
         AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
+    this.iosInjectJsAtDocumentStart,
+    this.iosInjectJsAtDocumentEnd
   }) : assert(autoMediaPlaybackPolicy != null);
 
   /// The initialUrl to load in the webview.
@@ -473,6 +475,12 @@ class CreationParams {
 
   /// Which restrictions apply on automatic media playback.
   final AutoMediaPlaybackPolicy autoMediaPlaybackPolicy;
+
+  /// ios inject js at document end
+  final String iosInjectJsAtDocumentStart;
+
+  /// ios inject js at document end
+  final String iosInjectJsAtDocumentEnd;
 
   @override
   String toString() {
