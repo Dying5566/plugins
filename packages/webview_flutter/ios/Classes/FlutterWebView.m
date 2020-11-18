@@ -90,15 +90,19 @@
 
     //inject js at document start
     NSString *injectJsAtStart = args[@"iosInjectJsAtDocumentStart"];
+    NSLog(@"iosInjectJsAtDocumentStart: %s\n", injectJsAtStart);
     if (!injectJsAtStart) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtStart injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
+      NSLog(@"did injectJsAtStart");
     }
 
     NSString *injectJsAtEnd = args[@"iosInjectJsAtDocumentEnd"];
+    NSLog(@"iosInjectJsAtDocumentEnd: %s\n", injectJsAtEnd);
     if (!injectJsAtEnd) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtEnd injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
+      NSLog(@"did injectJsAtEnd");
     }
       
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
