@@ -123,7 +123,7 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
     webView.getSettings().setUseWideViewPort(true); 
     webView.getSettings().setLoadWithOverviewMode(true);
-    LinearLayout.LayoutParams lp = (LayoutParams) webview.getLayoutParams();
+    LinearLayout.LayoutParams lp = (LayoutParams)webview.getLayoutParams();
     lp.setMargins(-10, -10, -10, -10);
     webview.setLayoutParams(lp);
 
