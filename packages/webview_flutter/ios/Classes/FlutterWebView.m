@@ -90,13 +90,13 @@
 
     //inject js at document start
     NSString *injectJsAtStart = args[@"iosInjectJsAtDocumentStart"];
-    if (injectJsAtStart != nil) {
+    if (injectJsAtStart != nil && [injectJsAtStart isKindOfClass:[NSString class]]) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtStart injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
     }
 
     NSString *injectJsAtEnd = args[@"iosInjectJsAtDocumentEnd"];
-    if (injectJsAtEnd != nil) {
+    if (injectJsAtEnd != nil && [injectJsAtEnd isKindOfClass:[NSString class]]) {
       WKUserScript *userScript = [[WKUserScript alloc] initWithSource:injectJsAtEnd injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
       [userContentController addUserScript:userScript];
     }
