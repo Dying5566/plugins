@@ -17,7 +17,6 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
-import android.widget.LinearLayout;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -123,9 +122,6 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
     webView.getSettings().setUseWideViewPort(true); 
     webView.getSettings().setLoadWithOverviewMode(true);
-    LinearLayout.LayoutParams lp = (LayoutParams)webview.getLayoutParams();
-    lp.setMargins(-10, -10, -10, -10);
-    webview.setLayoutParams(lp);
 
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
