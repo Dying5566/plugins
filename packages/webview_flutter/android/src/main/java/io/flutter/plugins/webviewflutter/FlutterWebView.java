@@ -117,6 +117,12 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
       String userAgent = (String) params.get("userAgent");
       updateUserAgent(userAgent);
     }
+
+    /// fork
+    webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+    webView.getSettings().setUseWideViewPort(true); 
+    webView.getSettings().setLoadWithOverviewMode(true);
+
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
       webView.loadUrl(url);
