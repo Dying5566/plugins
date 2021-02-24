@@ -72,6 +72,10 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
 
       return true;
     }
+    @Override
+    public void onProgressChanged(WebView view, int progress) {
+      flutterWebViewClient.onLoadingProgress(progress);
+    }
   }
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
