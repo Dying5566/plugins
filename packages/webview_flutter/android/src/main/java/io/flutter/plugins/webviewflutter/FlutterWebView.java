@@ -119,9 +119,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
     }
 
     /// fork
-    webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-    webView.getSettings().setUseWideViewPort(true); 
-    webView.getSettings().setLoadWithOverviewMode(true);
+    // webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+    // webView.getSettings().setUseWideViewPort(true); 
+    // webView.getSettings().setLoadWithOverviewMode(true);
 
     if (params.containsKey("initialUrl")) {
       String url = (String) params.get("initialUrl");
